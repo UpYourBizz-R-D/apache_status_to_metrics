@@ -72,4 +72,15 @@ fi
 
 # Restart Apache to apply changes
 apache2ctl configtest
-#systemctl restart apache2
+if [ $? -eq 0 ]; then
+    read -p "Config test is OK. Do you want to do a graceful restart? (y/n, default is n): " answer
+    answer=${answer:-n}
+    if [ "$answer" = "y" ]; then
+        systemctl reload apache2
+    else
+        echo "Skipping graceful restart."
+    fi
+else
+    echo "Config test failed. Please check the configuration."
+    exit 1
+fi
