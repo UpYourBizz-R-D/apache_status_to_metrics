@@ -70,17 +70,19 @@ else
     ' /etc/apache2/mods-available/status.conf > /etc/apache2/mods-available/status.conf.tmp && mv /etc/apache2/mods-available/status.conf.tmp /etc/apache2/mods-available/status.conf
 fi
 
+
 # Restart Apache to apply changes
 apache2ctl configtest
 if [ $? -eq 0 ]; then
-    read -p "Config test is OK. Do you want to do a graceful restart? (y/n, default is n): " answer
+    read -p "Config test is OK. Do you want to do a graceful restart? (y/n, default is n): " answer < /dev/tty
     answer=${answer:-n}
     if [ "$answer" = "y" ]; then
-        systemctl reload apache2
+        apache2ctl graceful
+        echo -e "\e[32mApache restarted successfully.\e[0m"
     else
         echo "Skipping graceful restart."
     fi
 else
-    echo "Config test failed. Please check the configuration."
+    echo -e "\e[31mConfig test failed. Please check the configuration.\e[0m"
     exit 1
 fi
