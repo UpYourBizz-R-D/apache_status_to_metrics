@@ -23,5 +23,27 @@ Rewrite the apache server status page to a prometheus metrics format, on the fly
 
 Possibility to add other Require to access from another ip (ex : prometheus)
 
-# install auto
+# install auto avec curl
 
+With no ip
+```
+curl -fsSL https://raw.githubusercontent.com/UpYourBizz-R-D/apache_status_to_metrics/refs/heads/main/install.sh | bash
+```
+
+With ips. Remplace ip1 .. by an ip or cidr
+```
+curl -fsSL https://raw.githubusercontent.com/UpYourBizz-R-D/apache_status_to_metrics/refs/heads/main/install.sh | bash -s -- ip1 ip2 ip3
+```
+
+
+# install auto avec wget
+
+With no ip
+```
+wget -qO- https://raw.githubusercontent.com/UpYourBizz-R-D/apache_status_to_metrics/refs/heads/main/install.sh | bash
+```
+
+With ips. Remplace ip1 .. by an ip or cidr
+```
+wget -qO- https://raw.githubusercontent.com/UpYourBizz-R-D/apache_status_to_metrics/refs/heads/main/install.sh | bash -s -- ip1 ip2 ip3
+```
